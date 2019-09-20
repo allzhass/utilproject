@@ -13,7 +13,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 public class QRGenerator {
 
     public static void main(String[] args) throws IOException, WriterException {
-        String base64QRCode = Base64.getEncoder().encodeToString(getQRCodeImage("Olzhas Zhetpisbayev", 300, 300));
+        String base64QRCode = Base64.getEncoder().encodeToString(getQRCodeImage("PNG","Olzhas Zhetpisbayev", 300, 300));
         System.out.println(base64QRCode);
 
     }
@@ -22,12 +22,12 @@ public class QRGenerator {
     This method takes the text to be encoded, the width and height of the QR Code,
     and returns the QR Code in the form of a byte array.
     */
-    private static byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
+    private static byte[] getQRCodeImage(String format, String text, int width, int height) throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
 
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+        MatrixToImageWriter.writeToStream(bitMatrix, format, pngOutputStream);
         byte[] pngData = pngOutputStream.toByteArray();
         return pngData;
     }
